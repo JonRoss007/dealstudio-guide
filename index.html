@@ -1,1470 +1,573 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deal Studio – Automations & DealBuilder Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Deal Studio – Trent Lee System Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <style>
-  :root {
-    --yellow: #F5A800;
-    --yellow-light: #FFD060;
-    --black: #111111;
-    --dark: #1A1A1A;
-    --mid: #2A2A2A;
-    --surface: #333333;
-    --grey: #888888;
-    --light-grey: #CCCCCC;
-    --white: #FFFFFF;
-    --green: #4CAF50;
-    --red: #E53935;
-    --blue: #2196F3;
-  }
+:root {
+  --ds-yellow:       #F5C518;
+  --ds-yellow-dark:  #C9A200;
+  --ds-yellow-pale:  #FFFDE7;
+  --ds-black:        #1A1B2E;
+  --ds-navy:         #12131F;
+  --ds-text:         #1A1B2E;
+  --ds-muted:        #5A6070;
+  --ds-light-muted:  #8A93A0;
+  --ds-border:       #E8EAED;
+  --ds-bg:           #F8F9FA;
+  --ds-white:        #FFFFFF;
+  --ds-tl-purple:    #7B2D8B;
+  --ds-tl-light:     #F8F0FC;
+  --ds-tl-border:    #D8B4E2;
+  --ds-success-bg:   #F0FDF4;
+  --ds-danger-bg:    #FFF5F5;
+  --ds-warning-bg:   #FFFBEB;
+  --radius:          10px;
+  --radius-sm:       6px;
+  --shadow:          0 1px 8px rgba(0,0,0,0.08);
+  --font:            'Inter', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--ds-bg); color: var(--ds-text); font-size: 15px; line-height: 1.65; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* SIDEBAR */
+.sidebar {
+  position: fixed; top: 0; left: 0; width: 248px; height: 100vh;
+  background: var(--ds-navy); display: flex; flex-direction: column;
+  overflow-y: auto; z-index: 100;
+}
+.sidebar-brand { padding: 24px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.brand-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.brand-ds-badge { background: var(--ds-yellow); color: var(--ds-black); font-size: 13px; font-weight: 900; padding: 4px 10px; border-radius: 5px; }
+.brand-name { font-size: 13px; font-weight: 700; color: var(--ds-white); }
+.brand-subtitle { font-size: 11.5px; color: rgba(255,255,255,0.4); line-height: 1.4; }
+.brand-tag { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; background: rgba(245,197,24,0.12); border: 1px solid rgba(245,197,24,0.25); color: var(--ds-yellow); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; }
+.nav-group-label { font-size: 10px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(255,255,255,0.28); padding: 18px 20px 6px; }
+.nav-link { display: flex; align-items: center; gap: 10px; padding: 9px 20px; color: rgba(255,255,255,0.55); text-decoration: none; font-size: 13.5px; font-weight: 400; transition: all 0.12s; border-left: 3px solid transparent; }
+.nav-link:hover, .nav-link.active { color: var(--ds-white); background: rgba(245,197,24,0.08); border-left-color: var(--ds-yellow); }
+.nav-link .nav-icon { font-size: 14px; width: 18px; text-align: center; }
 
-  body {
-    font-family: 'Barlow', sans-serif;
-    background: var(--black);
-    color: var(--white);
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+/* MAIN */
+.main { margin-left: 248px; min-height: 100vh; }
+.announce-bar { background: var(--ds-black); text-align: center; padding: 10px 24px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.8); }
+.announce-bar span { color: var(--ds-yellow); font-weight: 700; }
 
-  /* ── PAGE LAYOUT ── */
-  .page {
-    width: 1400px;
-    margin: 0 auto;
-    padding: 0 40px 60px;
-  }
+/* HERO */
+.hero { background: var(--ds-yellow); padding: 60px 64px 56px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 38%; background: rgba(0,0,0,0.06); clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%); }
+.hero-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(26,27,46,0.55); margin-bottom: 12px; }
+.hero-title { font-size: 40px; font-weight: 900; color: var(--ds-black); line-height: 1.1; margin-bottom: 16px; max-width: 560px; }
+.hero-sub { font-size: 16px; color: rgba(26,27,46,0.65); max-width: 520px; line-height: 1.6; }
+.hero-badges { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 600; }
+.hero-badge.dark { background: var(--ds-black); color: var(--ds-white); }
+.hero-badge.outline { background: rgba(26,27,46,0.1); color: var(--ds-black); border: 1.5px solid rgba(26,27,46,0.2); }
+.hero-badge.purple { background: var(--ds-tl-purple); color: white; }
 
-  /* ── HEADER ── */
-  .site-header {
-    background: var(--black);
-    border-bottom: 4px solid var(--yellow);
-    padding: 24px 40px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    width: 100%;
-  }
-  .logo-mark {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 28px;
-    color: var(--yellow);
-    letter-spacing: -1px;
-    line-height: 1;
-  }
-  .logo-mark span { color: var(--white); }
-  .header-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 22px;
-    color: var(--white);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  .header-badge {
-    margin-left: auto;
-    background: var(--yellow);
-    color: var(--black);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    padding: 5px 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
+/* CONTENT */
+.content { padding: 0 64px 80px; }
+.section { padding-top: 56px; max-width: 980px; }
+.section-eyebrow { font-size: 10.5px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ds-yellow-dark); margin-bottom: 8px; }
+.section-title { font-size: 26px; font-weight: 800; color: var(--ds-black); margin-bottom: 10px; line-height: 1.25; }
+.section-desc { font-size: 15px; color: var(--ds-muted); max-width: 680px; line-height: 1.7; margin-bottom: 28px; }
+.divider { height: 1px; background: var(--ds-border); margin: 52px 0 0; }
 
-  /* ── NAV ── */
-  .nav-bar {
-    background: var(--dark);
-    border-bottom: 1px solid var(--surface);
-    padding: 0 40px;
-    display: flex;
-    gap: 4px;
-    overflow-x: auto;
-  }
-  .nav-btn {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--grey);
-    padding: 14px 18px;
-    cursor: pointer;
-    border: none;
-    background: none;
-    border-bottom: 3px solid transparent;
-    transition: all .2s;
-    white-space: nowrap;
-  }
-  .nav-btn:hover { color: var(--white); border-bottom-color: var(--surface); }
-  .nav-btn.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+/* STATS */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+.stat-card { background: var(--ds-white); border: 1px solid var(--ds-border); border-top: 4px solid var(--ds-yellow); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); }
+.stat-card.tl { border-top-color: var(--ds-tl-purple); }
+.stat-num { font-size: 36px; font-weight: 900; color: var(--ds-black); line-height: 1; margin-bottom: 6px; }
+.stat-unit { font-size: 18px; color: var(--ds-muted); font-weight: 600; }
+.stat-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ds-light-muted); margin-bottom: 4px; }
+.stat-desc { font-size: 13px; color: var(--ds-muted); }
 
-  /* ── SECTIONS ── */
-  .section { display: none; padding-top: 48px; }
-  .section.active { display: block; }
+/* TWO COL */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+.info-card { background: var(--ds-white); border: 1px solid var(--ds-border); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); }
+.info-card-head { display: flex; align-items: center; gap: 10px; padding-bottom: 14px; border-bottom: 2px solid var(--ds-yellow); margin-bottom: 16px; }
+.info-card.tl .info-card-head { border-bottom-color: var(--ds-tl-purple); }
+.ic-icon { font-size: 20px; }
+.ic-label { font-size: 14px; font-weight: 800; color: var(--ds-black); }
+.info-card ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.info-card ul li { display: flex; gap: 10px; font-size: 13.5px; color: var(--ds-text); line-height: 1.5; }
+.check-icon { width: 18px; height: 18px; background: var(--ds-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: var(--ds-black); flex-shrink: 0; margin-top: 2px; }
+.check-icon.purple { background: var(--ds-tl-purple); color: white; }
 
-  .section-heading {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 42px;
-    text-transform: uppercase;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .section-heading span { color: var(--yellow); }
-  .section-sub {
-    font-size: 15px;
-    color: var(--grey);
-    margin-bottom: 36px;
-    font-weight: 400;
-  }
+/* CALLOUT */
+.callout { display: flex; gap: 14px; padding: 16px 20px; border-radius: var(--radius); margin: 20px 0; font-size: 14px; line-height: 1.65; border: 1px solid; }
+.callout.yellow { background: var(--ds-yellow-pale); border-color: #F5C518; color: #5a4000; }
+.callout.warning { background: var(--ds-warning-bg); border-color: #FCD34D; color: #78350F; }
+.callout.purple { background: var(--ds-tl-light); border-color: var(--ds-tl-border); color: #4A1060; }
+.callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.callout strong { font-weight: 700; }
 
-  /* ── PIPELINE ARROWS ── */
-  .pipeline-row {
-    display: flex;
-    align-items: stretch;
-    gap: 0;
-    margin-bottom: 48px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-  }
-  .pipe-stage {
-    flex: 1;
-    min-width: 160px;
-    position: relative;
-  }
-  .pipe-arrow {
-    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%, 22px 50%);
-    background: var(--surface);
-    padding: 22px 34px 22px 44px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    height: 100%;
-    transition: background .2s;
-  }
-  .pipe-stage:first-child .pipe-arrow {
-    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%);
-    padding-left: 22px;
-  }
-  .pipe-stage.active-stage .pipe-arrow { background: var(--yellow); }
-  .pipe-stage.active-stage .pipe-stage-name { color: var(--black); }
-  .pipe-stage.active-stage .pipe-stage-label { color: rgba(0,0,0,0.65); }
-  .pipe-stage.active-stage .pipe-stage-icon { color: var(--black); }
-  .pipe-stage.active-stage .pipe-automation-badge { background: var(--black); color: var(--yellow); }
+/* DATA TABLE */
+.data-table { width: 100%; border-collapse: collapse; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--ds-border); box-shadow: var(--shadow); font-size: 13.5px; }
+.data-table thead th { background: var(--ds-black); color: rgba(255,255,255,0.75); padding: 13px 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-align: left; }
+.data-table tbody tr { border-bottom: 1px solid var(--ds-border); }
+.data-table tbody tr:last-child { border-bottom: none; }
+.data-table tbody tr:hover { background: var(--ds-yellow-pale); }
+.data-table tbody td { padding: 12px 18px; vertical-align: top; }
+.data-table tbody td:first-child { font-weight: 600; background: var(--ds-bg); }
+.data-table tbody td:last-child { border-left: 1px solid var(--ds-border); color: var(--ds-muted); }
 
-  .pipe-stage-icon { font-size: 20px; line-height: 1; }
-  .pipe-stage-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 16px;
-    text-transform: uppercase;
-    color: var(--white);
-    letter-spacing: .5px;
-    line-height: 1.1;
-  }
-  .pipe-stage-label {
-    font-size: 11px;
-    color: var(--grey);
-    line-height: 1.3;
-  }
-  .pipe-automation-badge {
-    display: inline-block;
-    background: var(--yellow);
-    color: var(--black);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 10px;
-    padding: 2px 7px;
-    letter-spacing: .5px;
-    text-transform: uppercase;
-    margin-top: 4px;
-    width: fit-content;
-  }
+/* COMPARE TABLE */
+.compare-table { width: 100%; border-collapse: collapse; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--ds-border); box-shadow: var(--shadow); font-size: 13.5px; }
+.compare-table thead th { padding: 14px 18px; }
+.compare-table thead th.f-col { background: var(--ds-black); color: rgba(255,255,255,0.7); width: 34%; text-align: left; }
+.compare-table thead th.ds-col { background: var(--ds-yellow); color: var(--ds-black); width: 33%; border-left: 2px solid rgba(26,27,46,0.1); text-align: center; }
+.compare-table thead th.tl-col { background: var(--ds-tl-purple); color: white; width: 33%; border-left: 2px solid rgba(255,255,255,0.15); text-align: center; }
+.th-label { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.th-sub { font-size: 11.5px; font-weight: 400; opacity: 0.7; margin-top: 2px; }
+.compare-table tbody tr { border-bottom: 1px solid var(--ds-border); }
+.compare-table tbody tr:last-child { border-bottom: none; }
+.compare-table tbody tr:nth-child(odd) { background: var(--ds-bg); }
+.compare-table tbody tr:nth-child(even) { background: var(--ds-white); }
+.compare-table tbody tr:hover { background: var(--ds-yellow-pale); }
+.compare-table tbody td { padding: 12px 18px; vertical-align: middle; }
+.compare-table tbody td.f-col { font-weight: 600; color: var(--ds-black); }
+.compare-table tbody td.ds-col { border-left: 1px solid var(--ds-border); }
+.compare-table tbody td.tl-col { border-left: 1px solid var(--ds-border); background: linear-gradient(to right, rgba(123,45,139,0.04), transparent); }
 
-  /* ── LEGEND ── */
-  .legend {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-  }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--light-grey);
-  }
-  .legend-dot {
-    width: 14px; height: 14px;
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
+/* PILLS */
+.pill { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.pill.yes { background: var(--ds-success-bg); color: #15803D; }
+.pill.no { background: var(--ds-danger-bg); color: #DC2626; }
+.pill.partial { background: var(--ds-yellow-pale); color: #92400E; border: 1px solid var(--ds-yellow); }
+.pill-sub { font-size: 12px; color: var(--ds-light-muted); margin-top: 4px; display: block; }
 
-  /* ── EMAIL SEQUENCE ── */
-  .email-sequence {
-    display: flex;
-    gap: 0;
-    margin-bottom: 48px;
-    align-items: stretch;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-  }
-  .email-card {
-    flex: 1;
-    min-width: 200px;
-    background: var(--dark);
-    border: 1px solid var(--surface);
-    border-right: none;
-    padding: 24px 20px;
-    position: relative;
-  }
-  .email-card:last-child { border-right: 1px solid var(--surface); }
-  .email-card::after {
-    content: '→';
-    position: absolute;
-    right: -14px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
-    color: var(--yellow);
-    z-index: 2;
-    background: var(--black);
-    width: 28px;
-    text-align: center;
-  }
-  .email-card:last-child::after { display: none; }
-  .email-num {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 48px;
-    color: var(--yellow);
-    line-height: 1;
-    opacity: .3;
-    position: absolute;
-    top: 12px;
-    right: 16px;
-  }
-  .email-card-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 15px;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 6px;
-    letter-spacing: .5px;
-  }
-  .email-timing {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-  .email-desc { font-size: 12px; color: var(--grey); line-height: 1.5; }
-  .email-outcome {
-    margin-top: 12px;
-    padding-top: 10px;
-    border-top: 1px solid var(--surface);
-    font-size: 11px;
-    color: var(--light-grey);
-    line-height: 1.4;
-  }
+/* LEGEND */
+.legend { display: flex; gap: 16px; flex-wrap: wrap; padding: 12px 18px; background: var(--ds-white); border: 1px solid var(--ds-border); border-radius: var(--radius-sm); margin-bottom: 18px; }
+.legend-item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--ds-muted); font-weight: 500; }
+.leg-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
-  /* ── INFO CARDS GRID ── */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    margin-bottom: 40px;
-  }
-  .info-card {
-    background: var(--dark);
-    border: 1px solid var(--surface);
-    border-top: 3px solid var(--yellow);
-    padding: 24px;
-  }
-  .info-card.blue-top { border-top-color: var(--blue); }
-  .info-card.green-top { border-top-color: var(--green); }
-  .info-card.red-top { border-top-color: var(--red); }
-  .card-icon { font-size: 28px; margin-bottom: 12px; }
-  .card-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 17px;
-    text-transform: uppercase;
-    color: var(--white);
-    margin-bottom: 10px;
-    letter-spacing: .5px;
-  }
-  .card-body { font-size: 13px; color: var(--light-grey); line-height: 1.7; }
-  .card-body strong { color: var(--yellow); font-weight: 600; }
-  .card-body .note { color: var(--grey); font-style: italic; font-size: 12px; }
+/* PIPELINE */
+.pipeline-wrap { border: 1px solid var(--ds-border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+.pipeline-thead { display: grid; grid-template-columns: 210px 1fr 1fr; }
+.ph { padding: 12px 18px; font-size: 11px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; }
+.ph.stage-h { background: var(--ds-black); color: rgba(255,255,255,0.6); }
+.ph.ds-h { background: var(--ds-yellow); color: var(--ds-black); border-left: 2px solid rgba(26,27,46,0.1); }
+.ph.tl-h { background: var(--ds-tl-purple); color: white; border-left: 2px solid rgba(255,255,255,0.15); }
+.pipeline-group { background: var(--ds-black); color: var(--ds-yellow); font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 8px 18px; }
+.pipeline-row { display: grid; grid-template-columns: 210px 1fr 1fr; border-top: 1px solid var(--ds-border); background: var(--ds-white); transition: background 0.12s; }
+.pipeline-row:hover { background: var(--ds-yellow-pale); }
+.pipeline-cell { padding: 16px 18px; font-size: 13.5px; line-height: 1.6; }
+.pipeline-cell.stage-c { background: var(--ds-bg); border-right: 1px solid var(--ds-border); display: flex; flex-direction: column; gap: 6px; }
+.pipeline-cell.tl-c { border-left: 1px solid var(--ds-border); }
+.stage-name { font-size: 13px; font-weight: 800; color: var(--ds-black); }
+.stage-auto { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 700; background: var(--ds-yellow); color: var(--ds-black); padding: 2px 8px; border-radius: 20px; width: fit-content; }
+.stage-auto.manual { background: #FFF3E0; color: #E65100; }
+.pipeline-cell ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.pipeline-cell ul li { display: flex; gap: 8px; color: var(--ds-text); font-size: 13.5px; }
+.pipeline-cell ul li::before { content: '▸'; color: var(--ds-yellow-dark); font-size: 11px; margin-top: 4px; flex-shrink: 0; font-weight: 900; }
+.pipeline-cell.tl-c ul li::before { color: var(--ds-tl-purple); }
+.none-text { color: var(--ds-light-muted); font-style: italic; font-size: 13px; }
 
-  /* ── CHECKLISTS ── */
-  .checklist { list-style: none; margin-top: 10px; }
-  .checklist li {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    font-size: 13px;
-    color: var(--light-grey);
-    padding: 5px 0;
-    border-bottom: 1px solid rgba(255,255,255,.05);
-    line-height: 1.5;
-  }
-  .checklist li:last-child { border-bottom: none; }
-  .check-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-  .check-icon.yellow { color: var(--yellow); }
-  .check-icon.red { color: var(--red); }
-  .check-icon.green { color: var(--green); }
+/* STEPS */
+.steps { display: flex; flex-direction: column; margin: 20px 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--ds-border); box-shadow: var(--shadow); }
+.step { display: flex; border-bottom: 1px solid var(--ds-border); background: var(--ds-white); transition: background 0.12s; }
+.step:last-child { border-bottom: none; }
+.step:hover { background: var(--ds-yellow-pale); }
+.step-num { min-width: 56px; background: var(--ds-yellow); color: var(--ds-black); font-size: 18px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-body { padding: 18px 24px; }
+.step-title { font-size: 14.5px; font-weight: 800; color: var(--ds-black); margin-bottom: 4px; }
+.step-desc { font-size: 13.5px; color: var(--ds-muted); line-height: 1.6; }
 
-  /* ── FLOW STEPS ── */
-  .flow-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-bottom: 40px;
-  }
-  .flow-step {
-    display: flex;
-    gap: 0;
-    align-items: stretch;
-  }
-  .flow-step-num {
-    width: 48px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .step-circle {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: var(--yellow);
-    color: var(--black);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .step-circle.grey { background: var(--surface); color: var(--grey); }
-  .step-line {
-    width: 2px;
-    flex: 1;
-    background: var(--surface);
-    margin: 4px auto;
-    min-height: 20px;
-  }
-  .flow-step:last-child .step-line { display: none; }
-  .flow-step-body {
-    flex: 1;
-    background: var(--dark);
-    border: 1px solid var(--surface);
-    padding: 18px 22px;
-    margin-left: 16px;
-    margin-bottom: 8px;
-  }
-  .flow-step-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 16px;
-    text-transform: uppercase;
-    color: var(--white);
-    margin-bottom: 6px;
-    letter-spacing: .5px;
-  }
-  .flow-step-desc { font-size: 13px; color: var(--grey); line-height: 1.6; }
-  .flow-step-desc strong { color: var(--yellow); }
-  .flow-step-desc .tag {
-    display: inline-block;
-    background: var(--surface);
-    color: var(--yellow);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 11px;
-    padding: 2px 8px;
-    margin: 2px 3px;
-    text-transform: uppercase;
-    letter-spacing: .5px;
-  }
-  .flow-step-desc .tag.green { color: var(--green); }
-  .flow-step-desc .tag.red { color: var(--red); }
-  .flow-step-desc .tag.blue { color: var(--blue); }
+/* SUMMARY TABLE */
+.summary-table { width: 100%; border-collapse: collapse; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--ds-border); box-shadow: var(--shadow); font-size: 13.5px; }
+.summary-table thead th { padding: 13px 18px; font-size: 11px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; text-align: left; }
+.summary-table thead th:nth-child(1) { background: var(--ds-black); color: rgba(255,255,255,0.65); width: 32%; }
+.summary-table thead th:nth-child(2) { background: var(--ds-yellow); color: var(--ds-black); width: 34%; border-left: 2px solid rgba(26,27,46,0.1); }
+.summary-table thead th:nth-child(3) { background: var(--ds-tl-purple); color: white; width: 34%; border-left: 2px solid rgba(255,255,255,0.15); }
+.summary-table tbody tr { border-bottom: 1px solid var(--ds-border); }
+.summary-table tbody tr:last-child { border-bottom: none; }
+.summary-table tbody tr:nth-child(odd) { background: var(--ds-bg); }
+.summary-table tbody tr:nth-child(even) { background: var(--ds-white); }
+.summary-table tbody tr:hover { background: var(--ds-yellow-pale); }
+.summary-table tbody td { padding: 11px 18px; vertical-align: middle; }
+.summary-table tbody td:nth-child(1) { font-weight: 700; color: var(--ds-black); }
+.summary-table tbody td:nth-child(2) { border-left: 1px solid var(--ds-border); color: var(--ds-muted); }
+.summary-table tbody td:nth-child(3) { border-left: 1px solid var(--ds-border); color: var(--ds-tl-purple); font-weight: 600; }
 
-  /* ── DUAL COLUMNS ── */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 36px;
-  }
-  .three-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 36px;
-  }
+/* FOOTER */
+.footer { background: var(--ds-black); padding: 28px 64px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-left { display: flex; align-items: center; gap: 12px; }
+.footer-ds { background: var(--ds-yellow); color: var(--ds-black); font-size: 11px; font-weight: 900; padding: 3px 8px; border-radius: 4px; }
+.footer-text { font-size: 12.5px; color: rgba(255,255,255,0.35); }
+.footer-link { font-size: 12.5px; color: var(--ds-yellow); text-decoration: none; font-weight: 600; }
+.footer-link:hover { text-decoration: underline; }
 
-  /* ── SECTION LABEL ── */
-  .section-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--surface);
-  }
-
-  /* ── ALERT BANNERS ── */
-  .alert {
-    padding: 14px 20px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    font-size: 13px;
-    line-height: 1.6;
-  }
-  .alert.yellow { background: rgba(245,168,0,.12); border-left: 4px solid var(--yellow); color: var(--light-grey); }
-  .alert.green { background: rgba(76,175,80,.12); border-left: 4px solid var(--green); color: var(--light-grey); }
-  .alert.red { background: rgba(229,57,53,.12); border-left: 4px solid var(--red); color: var(--light-grey); }
-  .alert.blue { background: rgba(33,150,243,.12); border-left: 4px solid var(--blue); color: var(--light-grey); }
-  .alert-icon { font-size: 18px; flex-shrink: 0; }
-  .alert strong { color: var(--white); }
-
-  /* ── TABLE ── */
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    margin-bottom: 32px;
-  }
-  .data-table th {
-    background: var(--yellow);
-    color: var(--black);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 10px 16px;
-    text-align: left;
-  }
-  .data-table td {
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--surface);
-    color: var(--light-grey);
-    vertical-align: top;
-  }
-  .data-table tr:nth-child(even) td { background: rgba(255,255,255,.03); }
-  .data-table td strong { color: var(--white); }
-  .data-table .pill {
-    display: inline-block;
-    padding: 2px 8px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: .5px;
-    border-radius: 2px;
-  }
-  .pill.auto { background: rgba(76,175,80,.2); color: var(--green); }
-  .pill.manual { background: rgba(245,168,0,.2); color: var(--yellow); }
-  .pill.new { background: rgba(33,150,243,.2); color: var(--blue); }
-
-  /* ── DEALBUILDER ARCH ── */
-  .db-arch {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0;
-    border: 1px solid var(--surface);
-    margin-bottom: 40px;
-  }
-  .db-arch-col {
-    padding: 28px 24px;
-    border-right: 1px solid var(--surface);
-  }
-  .db-arch-col:last-child { border-right: none; }
-  .db-arch-col-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 13px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 16px;
-  }
-  .db-arch-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 10px;
-    margin-bottom: 6px;
-    background: var(--surface);
-    font-size: 13px;
-    color: var(--light-grey);
-  }
-  .db-arch-item-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--yellow);
-    flex-shrink: 0;
-  }
-  .db-arch-item-dot.blue { background: var(--blue); }
-  .db-arch-item-dot.green { background: var(--green); }
-
-  /* ── SNIPPET TABLE ── */
-  .snippet-row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--surface);
-    font-size: 13px;
-  }
-  .snippet-row:last-child { border-bottom: none; }
-  .snippet-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--yellow);
-    min-width: 280px;
-    letter-spacing: .3px;
-  }
-  .snippet-desc { color: var(--grey); flex: 1; }
-  .snippet-location {
-    font-size: 11px;
-    color: var(--light-grey);
-    background: var(--surface);
-    padding: 3px 8px;
-    white-space: nowrap;
-  }
-
-  /* ── TOMBSTONE ── */
-  .tombstone-steps {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0;
-    margin-bottom: 32px;
-  }
-  .ts-step {
-    background: var(--dark);
-    border: 1px solid var(--surface);
-    border-right: none;
-    padding: 20px 16px;
-    position: relative;
-    text-align: center;
-  }
-  .ts-step:last-child { border-right: 1px solid var(--surface); }
-  .ts-step::after {
-    content: '+';
-    position: absolute;
-    right: -12px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    color: var(--yellow);
-    background: var(--black);
-    width: 24px;
-    text-align: center;
-    z-index: 1;
-  }
-  .ts-step:last-child::after { display: none; }
-  .ts-step-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 6px;
-    letter-spacing: .5px;
-  }
-  .ts-step-value {
-    font-size: 12px;
-    color: var(--white);
-    font-weight: 600;
-  }
-
-  /* ── PRINT ── */
-  @media print {
-    .nav-bar, .site-header { position: static !important; }
-    .section { display: block !important; page-break-before: always; }
-    .section:first-of-type { page-break-before: auto; }
-  }
+@media (max-width: 860px) {
+  .sidebar { width: 100%; height: auto; position: relative; }
+  .main { margin-left: 0; }
+  .content { padding: 0 20px 60px; }
+  .hero { padding: 36px 20px 32px; }
+  .hero-title { font-size: 28px; }
+  .stats-grid, .two-col { grid-template-columns: 1fr; }
+  .pipeline-thead, .pipeline-row { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="logo-mark">DS <span>DEAL STUDIO</span></div>
-  <div class="header-title">Automations & DealBuilder Reference Guide</div>
-  <div class="header-badge">Updated 2026</div>
-</header>
-
-<nav class="nav-bar" id="mainNav">
-  <button class="nav-btn active" onclick="showSection('seller-pipeline')">Seller Pipeline</button>
-  <button class="nav-btn" onclick="showSection('buyer-pipeline')">Buyer Pipeline</button>
-  <button class="nav-btn" onclick="showSection('nda-flow')">NDA Email Flow</button>
-  <button class="nav-btn" onclick="showSection('dealbuilder')">DealBuilder</button>
-  <button class="nav-btn" onclick="showSection('sim-builder')">AI CIMBuilder</button>
-  <button class="nav-btn" onclick="showSection('cheat-sheet')">Cheat Sheet</button>
-  <button class="nav-btn" onclick="showSection('snippets')">Email Templates</button>
-  <button class="nav-btn" onclick="showSection('additional')">Additional Automations</button>
-  <button class="nav-btn" onclick="showSection('tombstone')">Tombstone</button>
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-logo">
+      <span class="brand-ds-badge">DS</span>
+      <span class="brand-name">DEAL STUDIO</span>
+    </div>
+    <div class="brand-subtitle">Trent Lee System<br>Reference Guide</div>
+    <div class="brand-tag">⚡ $200/month Add-On</div>
+  </div>
+  <div class="nav-group-label">Overview</div>
+  <a href="#what-is" class="nav-link"><span class="nav-icon">💡</span> What is Trent Lee?</a>
+  <a href="#how-it-works" class="nav-link"><span class="nav-icon">⚙️</span> How It Works</a>
+  <div class="nav-group-label">Comparison</div>
+  <a href="#feature-compare" class="nav-link"><span class="nav-icon">📊</span> Feature Comparison</a>
+  <a href="#buyer-pipeline" class="nav-link"><span class="nav-icon">🛒</span> Buyer Pipeline</a>
+  <a href="#seller-pipeline" class="nav-link"><span class="nav-icon">🏢</span> Seller Pipeline</a>
+  <div class="nav-group-label">Migration</div>
+  <a href="#migration" class="nav-link"><span class="nav-icon">🔄</span> Moving to Trent Lee</a>
+  <a href="#fit" class="nav-link"><span class="nav-icon">🎯</span> Is It Right for You?</a>
+  <div class="nav-group-label">Reference</div>
+  <a href="#summary" class="nav-link"><span class="nav-icon">📋</span> Quick Reference</a>
 </nav>
 
-<div class="page">
+<div class="main">
 
-<!-- ══════════════════════════════════════════════════════════════════════
-     SELLER PIPELINE
-════════════════════════════════════════════════════════════════════════ -->
-<div class="section active" id="seller-pipeline">
-  <p class="section-heading">Seller <span>Pipeline</span></p>
-  <p class="section-sub">6 stages from initial prospect through to post-closing. Automations active on highlighted stages only.</p>
-
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div> Automation-active stage (do not delete or rename)</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--surface)"></div> Standard stage (can be reordered or supplemented)</div>
+  <div class="announce-bar">
+    🚀 Deal Studio is excited to announce the launch of the <span>Trent Lee Edition.</span> This guide explains everything.
   </div>
 
-  <div class="pipeline-row">
-    <div class="pipe-stage">
-      <div class="pipe-arrow">
-        <div class="pipe-stage-icon">🔍</div>
-        <div class="pipe-stage-name">Prospect</div>
-        <div class="pipe-stage-label">Initial Assessment — review &amp; qualify business opportunities, assess owner readiness</div>
-      </div>
+  <header class="hero">
+    <div class="hero-eyebrow">Deal Studio · Automation Add-On · Internal Reference</div>
+    <h1 class="hero-title">Trent Lee System vs. Standard Automations</h1>
+    <p class="hero-sub">A complete reference for brokers and clients. Use this in meetings or send it to clients considering the upgrade to the Trent Lee Edition.</p>
+    <div class="hero-badges">
+      <span class="hero-badge dark">⚡ Buyer Pipeline</span>
+      <span class="hero-badge dark">🏢 Seller Pipeline</span>
+      <span class="hero-badge purple">🎥 Video at Every Stage</span>
+      <span class="hero-badge outline">$200 / month add-on</span>
     </div>
-    <div class="pipe-stage">
-      <div class="pipe-arrow">
-        <div class="pipe-stage-icon">📋</div>
-        <div class="pipe-stage-name">Discovery</div>
-        <div class="pipe-stage-label">Business Analysis — collect documents, financial data, valuation &amp; operational details</div>
-      </div>
-    </div>
-    <div class="pipe-stage">
-      <div class="pipe-arrow">
-        <div class="pipe-stage-icon">🤝</div>
-        <div class="pipe-stage-name">Onboarding</div>
-        <div class="pipe-stage-label">Preparation &amp; Engagement — create marketing packages, prepare CIM/CBR documents</div>
-      </div>
-    </div>
-    <div class="pipe-stage active-stage">
-      <div class="pipe-arrow">
-        <div class="pipe-stage-icon">📢</div>
-        <div class="pipe-stage-name">On Market</div>
-        <div class="pipe-stage-label">Advertising &amp; Marketing — NDA automations active, buyer inquiries trigger</div>
-        <div class="pipe-automation-badge">⚡ Automations Active</div>
-      </div>
-    </div>
-    <div class="pipe-stage active-stage">
-      <div class="pipe-arrow">
-        <div class="pipe-stage-icon">📊</div>
-        <div class="pipe-stage-name">Due Diligence</div>
-        <div class="pipe-stage-label">Contract &amp; Negotiation — triggers Under Contract email to new buyer inquiries</div>
-        <div class="pipe-automation-badge">⚡ Automations Active</div>
-      </div>
-    </div>
-    <div class="pipe-stage active-stage">
-      <div class="pipe-arrow">
-        <div class="pipe-stage-icon">🏷</div>
-        <div class="pipe-stage-name">Post Closing</div>
-        <div class="pipe-stage-label">Finalization &amp; Handover — triggers Sold email; Tombstone eligible when Status = Won</div>
-        <div class="pipe-automation-badge">⚡ Automations Active</div>
-      </div>
-    </div>
-  </div>
+  </header>
 
-  <div class="section-label">Required field setup for On Market stage</div>
-  <div class="three-col">
-    <div class="info-card">
-      <div class="card-title">📁 Opportunity Details Tab</div>
-      <ul class="checklist">
-        <li><span class="check-icon yellow">◆</span><span><strong>Opportunity Name:</strong> Internal ID in front — e.g. <em>1258 – The Corner Bakery</em></span></li>
-        <li><span class="check-icon yellow">◆</span><span><strong>Internal ID:</strong> Must exactly match the 3rd-party advertising site's ID</span></li>
-        <li><span class="check-icon yellow">◆</span><span><strong>Pipeline:</strong> Sellers</span></li>
-        <li><span class="check-icon yellow">◆</span><span><strong>Stage:</strong> On Market Stage</span></li>
-        <li><span class="check-icon yellow">◆</span><span><strong>Status:</strong> Open</span></li>
-        <li><span class="check-icon yellow">◆</span><span><strong>Opportunity Owner:</strong> Listing Broker</span></li>
-      </ul>
-    </div>
-    <div class="info-card">
-      <div class="card-title">🌐 Listing Public Data Tab</div>
-      <ul class="checklist">
-        <li><span class="check-icon yellow">◆</span><span><strong>Current Status:</strong> New or Active</span></li>
-        <li><span class="check-icon yellow">◆</span><span><strong>Public Advertised Title:</strong> Same as your advertising title — used in NDA &amp; all email templates</span></li>
-        <li><span class="check-icon yellow">◆</span><span><strong>Internal ID:</strong> Same as advertising site — this links buyers to the seller opportunity</span></li>
-        <li><span class="check-icon yellow">◆</span><span><strong>Industry:</strong> Must be selected — drives automations &amp; website listing image</span></li>
-      </ul>
-    </div>
-    <div class="info-card">
-      <div class="card-title">🔗 Buyer Automations Tab</div>
-      <ul class="checklist">
-        <li><span class="check-icon yellow">◆</span><span><strong>Blind Profile URL:</strong> Add link for Executive Summary email to be sent. Without this, email will NOT send</span></li>
-        <li><span class="check-icon yellow">◆</span><span><strong>CBR URL:</strong> Add link for CBR/CIM email. Without this, email will NOT send. <span class="note">(Legacy — see DealBuilder tab for updated CIM workflow)</span></span></li>
-      </ul>
-    </div>
-  </div>
+  <div class="content">
 
-  <div class="section-label">Stage change requirements</div>
-  <div class="two-col">
-    <div class="info-card">
-      <div class="card-title">🔒 Under Contract Settings</div>
-      <ul class="checklist">
-        <li><span class="check-icon yellow">◆</span><span>Opportunity Details → <strong>Pipeline:</strong> Sellers</span></li>
-        <li><span class="check-icon yellow">◆</span><span>Opportunity Details → <strong>Stage:</strong> Due Diligence</span></li>
-        <li><span class="check-icon yellow">◆</span><span>Opportunity Details → <strong>Status:</strong> Open</span></li>
-        <li><span class="check-icon yellow">◆</span><span>Listing Public Data → <strong>Current Status:</strong> Under Contract</span></li>
-      </ul>
-    </div>
-    <div class="info-card">
-      <div class="card-title">🏷 Sold Settings</div>
-      <ul class="checklist">
-        <li><span class="check-icon yellow">◆</span><span>Opportunity Details → <strong>Pipeline:</strong> Sellers</span></li>
-        <li><span class="check-icon yellow">◆</span><span>Opportunity Details → <strong>Stage:</strong> Post Closing</span></li>
-        <li><span class="check-icon yellow">◆</span><span>Opportunity Details → <strong>Status:</strong> Won (drag &amp; drop)</span></li>
-        <li><span class="check-icon yellow">◆</span><span>Listing Public Data → <strong>Current Status:</strong> Sold</span></li>
-        <li><span class="check-icon yellow">◆</span><span>Create Tombstone (see Tombstone tab)</span></li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     BUYER PIPELINE
-════════════════════════════════════════════════════════════════════════ -->
-<div class="section" id="buyer-pipeline">
-  <p class="section-heading">Buyer <span>Pipeline</span></p>
-  <p class="section-sub">5 stages tracking a buyer from inquiry through to due diligence. Automations active on 4 of these stages.</p>
-
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div> Automation-active stage</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--surface)"></div> Standard stage</div>
-  </div>
-
-  <div class="pipeline-row">
-    <div class="pipe-stage active-stage">
-      <div class="pipe-arrow">
-        <div class="pipe-stage-icon">⏳</div>
-        <div class="pipe-stage-name">Pending / On Hold / UC</div>
-        <div class="pipe-stage-label">Backup Buyer — business is under contract; buyer placed on hold</div>
-        <div class="pipe-automation-badge">⚡ Under Contract Email</div>
+    <div class="section" id="what-is">
+      <div class="section-eyebrow">About the System</div>
+      <h2 class="section-title">What is the Trent Lee System?</h2>
+      <p class="section-desc">The Trent Lee System is a premium, done-for-you automation package available inside Deal Studio. It was developed by Trent Lee of First Choice Business Brokers, one of the top-producing business brokers in the United States.</p>
+      <div class="callout yellow">
+        <span class="callout-icon">🎯</span>
+        <div><strong>In plain terms:</strong> It gives your brokerage a fully scripted communication system so that every buyer and seller receives a professional, high-frequency follow-up experience — without your team writing a single word or sending a single manual message.</div>
       </div>
-    </div>
-    <div class="pipe-stage active-stage">
-      <div class="pipe-arrow">
-        <div class="pipe-stage-icon">ℹ️</div>
-        <div class="pipe-stage-name">Inquiry Received</div>
-        <div class="pipe-stage-label">Buyer Interest Logged — NDA email sequence triggered automatically</div>
-        <div class="pipe-automation-badge">⚡ NDA Email Triggered</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Buyer Sequences</div>
+          <div class="stat-num">17<span class="stat-unit">+</span></div>
+          <div class="stat-desc">Emails across all buyer pipeline stages</div>
+        </div>
+        <div class="stat-card tl">
+          <div class="stat-label">Seller Sequences</div>
+          <div class="stat-num">30<span class="stat-unit">+</span></div>
+          <div class="stat-desc">Emails across the full seller journey</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Longest Nurture</div>
+          <div class="stat-num">434<span class="stat-unit"> days</span></div>
+          <div class="stat-desc">Automated seller follow-up sequence</div>
+        </div>
       </div>
-    </div>
-    <div class="pipe-stage active-stage">
-      <div class="pipe-arrow">
-        <div class="pipe-stage-icon">✍️</div>
-        <div class="pipe-stage-name">NDA Signed</div>
-        <div class="pipe-stage-label">Confidentiality Secured — buyer receives Exec Summary/Blind Profile (if URL set)</div>
-        <div class="pipe-automation-badge">⚡ Exec Summary Email</div>
-      </div>
-    </div>
-    <div class="pipe-stage active-stage">
-      <div class="pipe-arrow">
-        <div class="pipe-stage-icon">🔒</div>
-        <div class="pipe-stage-name">CIM/CBR Sent</div>
-        <div class="pipe-stage-label">Detailed Info Shared — broker manually moves buyer here after qualification</div>
-        <div class="pipe-automation-badge">⚡ Broker Approval Req.</div>
-      </div>
-    </div>
-    <div class="pipe-stage">
-      <div class="pipe-arrow">
-        <div class="pipe-stage-icon">📋</div>
-        <div class="pipe-stage-name">Due Diligence</div>
-        <div class="pipe-stage-label">Buyer Evaluation — in-depth analysis and questioning in collaboration with broker</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="alert yellow">
-    <div class="alert-icon">💡</div>
-    <div><strong>DealBuilder Integration:</strong> With DealBuilder, buyers added directly in the DealBuilder listing (Inquiry Received stage) also trigger NDA automation. CIM access is now granted via DealBuilder → Buyer → Actions → Give Presentation Access, which automatically moves the buyer to CIM/CBR Sent stage. See the DealBuilder tab for the full updated workflow.</div>
-  </div>
-
-  <div class="section-label">How buyers enter the pipeline</div>
-  <div class="three-col">
-    <div class="info-card blue-top">
-      <div class="card-title">🌐 Website / Advertising Sites</div>
-      <div class="card-body">Buyer submits inquiry via your Deal Studio website or a 3rd-party site (BizBuySell, BizQuest, etc.).<br><br><strong>Make.com forwarding rule</strong> parses the inquiry email and creates the buyer opportunity automatically in <strong>Inquiry Received</strong> stage, triggering the NDA sequence.</div>
-    </div>
-    <div class="info-card blue-top">
-      <div class="card-title">➕ Manual Add via DealBuilder</div>
-      <div class="card-body">Go to <strong>DealBuilder → specific listing → Add Buyer</strong>.<br><br>Leave buyer in <strong>Inquiry Received</strong> stage. NDA automation triggers automatically — no separate URL needed in the new workflow.</div>
-    </div>
-    <div class="info-card blue-top">
-      <div class="card-title">📧 Direct Email / Referral</div>
-      <div class="card-body">Connect your <strong>two-way email sync</strong> in your profile. Emails from known contacts auto-create or update records.<br><br>Use the <strong>auto-BCC link</strong> (in your profile) to forward individual emails into GHL for contact capture.</div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     NDA EMAIL FLOW
-════════════════════════════════════════════════════════════════════════ -->
-<div class="section" id="nda-flow">
-  <p class="section-heading">NDA Email <span>Automation Flow</span></p>
-  <p class="section-sub">Up to 4 automated touchpoints with a buyer before the deal is marked lost. All fully automated — no broker action required.</p>
-
-  <div class="alert yellow">
-    <div class="alert-icon">⚠️</div>
-    <div><strong>Requirements for NDA emails to send:</strong> Seller Opportunity must be in <strong>Seller Pipeline</strong> → <strong>On Market stage</strong> → <strong>Status: Open</strong>. Internal ID and Public Advertised Title must be completed.</div>
-  </div>
-
-  <div class="email-sequence">
-    <div class="email-card">
-      <div class="email-num">1</div>
-      <div class="email-card-title">NDA Email 1</div>
-      <div class="email-timing">⚡ Immediate</div>
-      <div class="email-desc">Sent as soon as a buyer inquiry is received. Introduces the listing and sends a link to the electronic Confidentiality / NDA form.</div>
-      <div class="email-outcome">📍 Buyer enters <strong>Inquiry Received</strong> stage on Buyer Pipeline</div>
-    </div>
-    <div class="email-card">
-      <div class="email-num">2</div>
-      <div class="email-card-title">NDA Follow-Up 1</div>
-      <div class="email-timing">⏱ +3 Days</div>
-      <div class="email-desc">Sent if buyer has not yet signed the NDA. Gentle reminder with NDA link included.</div>
-      <div class="email-outcome">📍 Only sends if NDA still unsigned at Day 3</div>
-    </div>
-    <div class="email-card">
-      <div class="email-num">3</div>
-      <div class="email-card-title">NDA Follow-Up 2</div>
-      <div class="email-timing">⏱ +7 Days</div>
-      <div class="email-desc">Second follow-up if buyer has still not responded. Sent 7 days after the first follow-up.</div>
-      <div class="email-outcome">📍 Only sends if NDA still unsigned at Day 10 total</div>
-    </div>
-    <div class="email-card">
-      <div class="email-num">4</div>
-      <div class="email-card-title">NDA Final</div>
-      <div class="email-timing">⏱ +10 Days</div>
-      <div class="email-desc">Final outreach. If no response after this email, the deal is <strong>automatically marked as lost</strong> 3 days later.</div>
-      <div class="email-outcome">⛔ Deal marked Lost if no response within 3 days</div>
-    </div>
-  </div>
-
-  <div class="section-label">After NDA is signed</div>
-  <div class="flow-steps">
-    <div class="flow-step">
-      <div class="flow-step-num">
-        <div class="step-circle">1</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">NDA Automatically Signed & Stage Moves</div>
-        <div class="flow-step-desc">Buyer completes the NDA electronically. The system automatically moves the buyer from <span class="tag">Inquiry Received</span> → <span class="tag">NDA Signed</span>. Buyer receives a copy of the signed NDA by email.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num">
-        <div class="step-circle">2</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Executive Summary / Blind Profile Email (15 minutes after)</div>
-        <div class="flow-step-desc">If a <strong>Blind Profile URL</strong> is present in the Seller Opportunity (Buyer Automations Tab or Opportunity Details), an email with the link is auto-sent 15 minutes after NDA sign. <span class="tag red">⚠ If field is blank — email will NOT send</span>. Edit via <span class="tag">Marketing → Snippets → DS_2.0.0_NDA Follow Up</span></div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num">
-        <div class="step-circle">3</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Broker Qualifies Buyer</div>
-        <div class="flow-step-desc">Broker reviews the buyer, checks biometrics (if using DealBuilder), and decides whether to proceed to sending the CIM/CBR. No automation — this is a manual broker decision.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num">
-        <div class="step-circle">4</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">CIM / CBR Access (Broker Action Required)</div>
-        <div class="flow-step-desc">
-          <strong>Via DealBuilder (recommended):</strong> Go to buyer → <span class="tag blue">Actions → Give Presentation Access</span> → moves buyer to CIM/CBR Sent stage automatically + gives data room access.<br><br>
-          <strong>Via Pipeline (legacy):</strong> Drag buyer to <span class="tag">CIM/CBR Sent</span> stage → select <span class="tag green">Yes</span> to send CBR email. This only sends the CBR email and CIM access — does NOT give data room access.
-          <br><span class="tag red">⚠ Data room access must be granted through DealBuilder only</span>
+      <div class="two-col">
+        <div class="info-card">
+          <div class="info-card-head"><span class="ic-icon">🛒</span><span class="ic-label">Buyer Pipeline Touchpoints</span></div>
+          <ul>
+            <li><span class="check-icon">✓</span>Pending / UC: 1 Email + 1 SMS</li>
+            <li><span class="check-icon">✓</span>Inquiry Received: 4 Emails + 4 SMS + 2 Videos</li>
+            <li><span class="check-icon">✓</span>NDA Signed: 5+ Emails + 1 SMS + 4 Videos + 1 Voicemail</li>
+            <li><span class="check-icon">✓</span>CIM Sent: 1 Email + 1 Video</li>
+            <li><span class="check-icon">✓</span>Due Diligence: 6 Emails + 6 SMS + 2 Videos + 2 Voicemails</li>
+          </ul>
+        </div>
+        <div class="info-card tl">
+          <div class="info-card-head"><span class="ic-icon">🏢</span><span class="ic-label">Seller Pipeline Touchpoints</span></div>
+          <ul>
+            <li><span class="check-icon purple">✓</span>Initial Prospecting: 7 Emails + 1 Video (up to 299 days)</li>
+            <li><span class="check-icon purple">✓</span>Discovery / Missed Appt: 9 Emails + 2 Videos (up to 434 days)</li>
+            <li><span class="check-icon purple">✓</span>Onboarding / Financials: 8 Emails + 1 Video (up to 173 days)</li>
+            <li><span class="check-icon purple">✓</span>Pre-Listing Nurture: 6 Emails + 10+ Videos (up to 183 days)</li>
+            <li><span class="check-icon purple">✓</span>Active Listing: 3+ Emails + 1 Video (every 70 days)</li>
+            <li><span class="check-icon purple">✓</span>Post-Closing: 1 Email</li>
+          </ul>
         </div>
       </div>
     </div>
+
+    <div class="divider"></div>
+
+    <div class="section" id="how-it-works">
+      <div class="section-eyebrow">Automation Logic</div>
+      <h2 class="section-title">How It Works Inside Deal Studio</h2>
+      <p class="section-desc">The Trent Lee System runs on top of your existing GoHighLevel (GHL) CRM. When a contact moves to a pipeline stage, the correct sequence fires automatically.</p>
+      <table class="data-table">
+        <thead><tr><th style="width:42%">Trigger</th><th>What Fires Automatically</th></tr></thead>
+        <tbody>
+          <tr><td>Contact enters Inquiry Received</td><td>NDA email + SMS sequence with intro video from Trent's assistant</td></tr>
+          <tr><td>NDA is signed electronically</td><td>Thank-you SMS + CIM / blind profile delivery sequence</td></tr>
+          <tr><td>Buyer/Seller meeting is scheduled</td><td>Prep email + SMS + calendar reminder with prep video</td></tr>
+          <tr><td>Meeting is missed</td><td>3-email reschedule sequence fires automatically</td></tr>
+          <tr><td>Meeting is completed</td><td>Post-meeting follow-up: email → wait → task → email → wait → email</td></tr>
+          <tr><td>Contact stalls in any stage</td><td>CRM task auto-created to prompt broker to check in manually</td></tr>
+          <tr><td>Seller listing goes Active (On Market)</td><td>Listing confirmation email + financial update request every 70 days</td></tr>
+          <tr><td>Listing is sold</td><td>Post-closing congratulations + gift request + Google review ask</td></tr>
+        </tbody>
+      </table>
+      <div class="callout yellow" style="margin-top:20px">
+        <span class="callout-icon">💡</span>
+        <div><strong>Key difference from standard automations:</strong> It is not just volume. It is the quality, timing, tone, and use of video at every major stage — designed to build trust and keep deals moving without manual effort.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section" id="feature-compare">
+      <div class="section-eyebrow">Side by Side</div>
+      <h2 class="section-title">Feature Comparison</h2>
+      <p class="section-desc">Deal Studio includes solid standard automations out of the box. The Trent Lee System builds on top with a significantly expanded library of sequences, videos, SMS, and voicemails.</p>
+      <div class="legend">
+        <div class="legend-item"><div class="leg-dot" style="background:#22C55E"></div>Yes / Included</div>
+        <div class="legend-item"><div class="leg-dot" style="background:#EF4444"></div>Not included</div>
+        <div class="legend-item"><div class="leg-dot" style="background:#F5C518"></div>Basic / Partial</div>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th class="f-col"><div class="th-label">Feature</div></th>
+            <th class="ds-col"><div class="th-label">Deal Studio Standard</div><div class="th-sub">Included with all accounts</div></th>
+            <th class="tl-col"><div class="th-label">Trent Lee System</div><div class="th-sub">$200/month add-on</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="f-col">NDA email sequence (Buyer)</td><td class="ds-col"><span class="pill partial">⚡ Basic</span><span class="pill-sub">4 touchpoints over ~13 days</span></td><td class="tl-col"><span class="pill yes">✓ Enhanced</span><span class="pill-sub">4+ touchpoints with video &amp; SMS</span></td></tr>
+          <tr><td class="f-col">SMS at Inquiry Received</td><td class="ds-col"><span class="pill no">✕ No</span></td><td class="tl-col"><span class="pill yes">✓ Yes</span><span class="pill-sub">Multi-touch SMS sequence</span></td></tr>
+          <tr><td class="f-col">SMS at NDA Signed</td><td class="ds-col"><span class="pill no">✕ No</span></td><td class="tl-col"><span class="pill yes">✓ Yes</span></td></tr>
+          <tr><td class="f-col">SMS at Due Diligence</td><td class="ds-col"><span class="pill no">✕ No</span></td><td class="tl-col"><span class="pill yes">✓ Yes</span><span class="pill-sub">6 SMS messages in this stage</span></td></tr>
+          <tr><td class="f-col">Voicemail drops</td><td class="ds-col"><span class="pill no">✕ No</span></td><td class="tl-col"><span class="pill yes">✓ Yes</span><span class="pill-sub">Buyer and Seller pipelines</span></td></tr>
+          <tr><td class="f-col">Video at each stage</td><td class="ds-col"><span class="pill no">✕ No</span></td><td class="tl-col"><span class="pill yes">✓ Yes</span><span class="pill-sub">Trent Lee branded video embeds</span></td></tr>
+          <tr><td class="f-col">Seller prospecting sequence</td><td class="ds-col"><span class="pill no">✕ No</span></td><td class="tl-col"><span class="pill yes">✓ Yes</span><span class="pill-sub">7+ emails over up to 299 days</span></td></tr>
+          <tr><td class="f-col">Missed appointment recovery</td><td class="ds-col"><span class="pill no">✕ No</span></td><td class="tl-col"><span class="pill yes">✓ Yes</span><span class="pill-sub">3-email (buyer) and 9-email (seller)</span></td></tr>
+          <tr><td class="f-col">Seller financial reminders</td><td class="ds-col"><span class="pill no">✕ No</span></td><td class="tl-col"><span class="pill yes">✓ Yes</span><span class="pill-sub">Request sent every 70 days on market</span></td></tr>
+          <tr><td class="f-col">Post-closing review request</td><td class="ds-col"><span class="pill no">✕ No</span></td><td class="tl-col"><span class="pill yes">✓ Yes</span><span class="pill-sub">Gift request + Google review ask</span></td></tr>
+          <tr><td class="f-col">Pre-listing nurture (sellers)</td><td class="ds-col"><span class="pill no">✕ No</span></td><td class="tl-col"><span class="pill yes">✓ Yes</span><span class="pill-sub">6 emails + 10+ videos over 183 days</span></td></tr>
+          <tr><td class="f-col">Auto-task creation on stall</td><td class="ds-col"><span class="pill no">✕ No</span></td><td class="tl-col"><span class="pill yes">✓ Yes</span></td></tr>
+          <tr><td class="f-col">CIM delivery automation</td><td class="ds-col"><span class="pill partial">⚡ Basic</span><span class="pill-sub">Email on stage move (if URL set)</span></td><td class="tl-col"><span class="pill yes">✓ Enhanced</span><span class="pill-sub">Richer email with video + article</span></td></tr>
+          <tr><td class="f-col">Under Contract notification</td><td class="ds-col"><span class="pill yes">✓ Yes</span></td><td class="tl-col"><span class="pill yes">✓ Enhanced</span><span class="pill-sub">Extended with SMS + 150+ listings link</span></td></tr>
+          <tr><td class="f-col">DealBuilder compatibility</td><td class="ds-col"><span class="pill yes">✓ Native</span></td><td class="tl-col"><span class="pill yes">✓ Compatible</span></td></tr>
+          <tr><td class="f-col">Setup required</td><td class="ds-col"><span class="pill yes">✓ Minimal</span><span class="pill-sub">Plug-and-play out of the box</span></td><td class="tl-col"><span class="pill partial">⚡ Moderate</span><span class="pill-sub">Videos, calendar links, SMS number</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section" id="buyer-pipeline">
+      <div class="section-eyebrow">Buyer Pipeline</div>
+      <h2 class="section-title">Buyer Pipeline — Stage by Stage</h2>
+      <p class="section-desc">Every buyer pipeline stage compared side by side. Standard automations on the left, Trent Lee on the right.</p>
+      <div class="pipeline-wrap">
+        <div class="pipeline-thead">
+          <div class="ph stage-h">Stage</div>
+          <div class="ph ds-h">Deal Studio Standard</div>
+          <div class="ph tl-h">Trent Lee System</div>
+        </div>
+        <div class="pipeline-group">⏳ Pending / On Hold / UC</div>
+        <div class="pipeline-row">
+          <div class="pipeline-cell stage-c"><div class="stage-name">Backup Buyer</div><span class="stage-auto">⚡ Auto</span></div>
+          <div class="pipeline-cell"><ul><li>1 email notifying buyer the business is under contract.</li><li>Buyer placed on backup list — no further automation.</li></ul></div>
+          <div class="pipeline-cell tl-c"><ul><li>1 SMS + 1 email sent immediately from Trent's assistant.</li><li>Email explains under-contract status and offers NDA option to stay informed.</li><li>Links buyer to 150+ other available listings.</li></ul></div>
+        </div>
+        <div class="pipeline-group">ℹ️ Inquiry Received</div>
+        <div class="pipeline-row">
+          <div class="pipeline-cell stage-c"><div class="stage-name">NDA Sequence</div><span class="stage-auto">⚡ Auto</span></div>
+          <div class="pipeline-cell"><ul><li>Email 1: Immediate NDA link.</li><li>Email 2: Follow-up at Day 3.</li><li>Email 3: Follow-up at Day 10.</li><li>Email 4: Final. Deal marked lost 3 days later if no response.</li><li><span class="none-text">No SMS. No video content.</span></li></ul></div>
+          <div class="pipeline-cell tl-c"><ul><li>Email + SMS 1: Immediate intro from Trent's assistant with 2-minute video.</li><li>Email + SMS 2: Follow-up with NDA link and second video.</li><li>Email 3: Last-chance follow-up at Day 7.</li><li>Email + SMS 4: Final message with unsubscribe option.</li><li>All emails include embedded videos and calendar booking links.</li></ul></div>
+        </div>
+        <div class="pipeline-group">✍️ NDA Signed</div>
+        <div class="pipeline-row">
+          <div class="pipeline-cell stage-c"><div class="stage-name">Post-NDA Nurture</div><span class="stage-auto">⚡ Auto</span></div>
+          <div class="pipeline-cell"><ul><li>Exec Summary / Blind Profile email sent if URL is configured in the Seller Opportunity.</li><li><span class="none-text">No further automation unless broker moves stage.</span></li></ul></div>
+          <div class="pipeline-cell tl-c"><ul><li>Immediate thank-you SMS + "what to expect next" video.</li><li>CIM delivery email with Forbes article + Trent Lee video.</li><li>5+ follow-up emails: Did you review the CIM? 11 questions to ask the seller (video). Voicemail drop.</li><li>Final email inviting buyer to explore other listings if not a match.</li></ul></div>
+        </div>
+        <div class="pipeline-group">🔒 CIM / CBR Sent</div>
+        <div class="pipeline-row">
+          <div class="pipeline-cell stage-c"><div class="stage-name">CIM Delivery</div><span class="stage-auto manual">👤 Broker Action</span></div>
+          <div class="pipeline-cell"><ul><li>1 email delivering the CIM link when broker moves stage.</li><li><span class="none-text">No further automated follow-up after delivery.</span></li></ul></div>
+          <div class="pipeline-cell tl-c"><ul><li>Same broker-triggered move but email is significantly richer.</li><li>Personalised intro, embedded video, Forbes article reference.</li><li>Designed to pre-sell the opportunity before the buyer opens the document.</li></ul></div>
+        </div>
+        <div class="pipeline-group">📋 Due Diligence</div>
+        <div class="pipeline-row">
+          <div class="pipeline-cell stage-c"><div class="stage-name">Buyer/Seller Meeting</div><span class="stage-auto">⚡ Auto</span></div>
+          <div class="pipeline-cell"><ul><li><span class="none-text">No pre-meeting automation.</span></li><li><span class="none-text">No missed appointment recovery.</span></li><li><span class="none-text">No post-meeting follow-up sequence.</span></li></ul></div>
+          <div class="pipeline-cell tl-c"><ul><li>Pre-meeting email + SMS with prep video and calendar link.</li><li>If missed: 3-email reschedule sequence fires automatically.</li><li>If completed: email → wait → task → email → wait → email follow-up.</li><li>2 voicemail drops included at key moments.</li><li>Auto-task created if buyer stalls — prompts broker manually.</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section" id="seller-pipeline">
+      <div class="section-eyebrow">Seller Pipeline</div>
+      <h2 class="section-title">Seller Pipeline — Stage by Stage</h2>
+      <p class="section-desc">The Trent Lee System adds an entire seller-side communication layer that does not exist in the standard automations — from initial prospect all the way through to post-closing.</p>
+      <div class="pipeline-wrap">
+        <div class="pipeline-thead">
+          <div class="ph stage-h">Stage</div>
+          <div class="ph ds-h">Deal Studio Standard</div>
+          <div class="ph tl-h">Trent Lee System</div>
+        </div>
+        <div class="pipeline-group">🔍 Prospect Listing</div>
+        <div class="pipeline-row">
+          <div class="pipeline-cell stage-c"><div class="stage-name">Initial Prospecting</div></div>
+          <div class="pipeline-cell"><ul><li><span class="none-text">No seller-side prospecting automations in the standard system.</span></li><li>Broker handles initial outreach manually.</li></ul></div>
+          <div class="pipeline-cell tl-c"><ul><li>7+ automated emails over up to 299 days.</li><li>Designed to warm cold prospects who have not yet committed to a valuation meeting.</li><li>Includes video content and valuation resource links.</li><li>Ensures no lead falls through the cracks long-term.</li></ul></div>
+        </div>
+        <div class="pipeline-group">📋 Discovery (Meeting Phase)</div>
+        <div class="pipeline-row">
+          <div class="pipeline-cell stage-c"><div class="stage-name">Missed Appointment</div><span class="stage-auto">⚡ Auto</span></div>
+          <div class="pipeline-cell"><ul><li><span class="none-text">No missed appointment recovery for sellers in the standard system.</span></li></ul></div>
+          <div class="pipeline-cell tl-c"><ul><li>9-email recovery sequence triggered if the valuation meeting is missed.</li><li>Runs over up to 434 days.</li><li>Includes SMS and voicemail to re-engage without being pushy.</li></ul></div>
+        </div>
+        <div class="pipeline-group">🤝 Onboarding (Waiting on Financials)</div>
+        <div class="pipeline-row">
+          <div class="pipeline-cell stage-c"><div class="stage-name">Financial Request</div><span class="stage-auto">⚡ Auto</span></div>
+          <div class="pipeline-cell"><ul><li><span class="none-text">No automation for financial document collection in the standard system.</span></li></ul></div>
+          <div class="pipeline-cell tl-c"><ul><li>8 automated emails over 173 days requesting P&amp;L statements and balance sheets.</li><li>Progressive tone: helpful first, then escalating urgency.</li><li>Keeps the valuation process moving without the broker chasing manually.</li></ul></div>
+        </div>
+        <div class="pipeline-group">💭 After Valuation (Think About Selling)</div>
+        <div class="pipeline-row">
+          <div class="pipeline-cell stage-c"><div class="stage-name">Pre-Listing Nurture</div><span class="stage-auto">⚡ Auto</span></div>
+          <div class="pipeline-cell"><ul><li><span class="none-text">No automation for sellers not yet ready to list.</span></li></ul></div>
+          <div class="pipeline-cell tl-c"><ul><li>6 emails + 10+ videos over 183 days.</li><li>For owners who received a valuation but have not yet signed a listing agreement.</li><li>Content: market timing, cost of waiting, and success stories.</li><li>Keeps the broker top-of-mind without any manual outreach.</li></ul></div>
+        </div>
+        <div class="pipeline-group">📢 Active Listing (On Market)</div>
+        <div class="pipeline-row">
+          <div class="pipeline-cell stage-c"><div class="stage-name">Seller Updates</div><span class="stage-auto">⚡ Auto</span></div>
+          <div class="pipeline-cell"><ul><li><span class="none-text">No automated seller update emails in the standard system.</span></li><li>Broker provides updates manually.</li></ul></div>
+          <div class="pipeline-cell tl-c"><ul><li>Listing confirmation email immediately after signing explaining next steps.</li><li>Financial update request email sent every 70 days.</li><li>Recurring 70-day reminder to keep the CIM current.</li><li>Auto-task created for broker after listing goes live.</li></ul></div>
+        </div>
+        <div class="pipeline-group">🏷 Post-Closing</div>
+        <div class="pipeline-row">
+          <div class="pipeline-cell stage-c"><div class="stage-name">Closing Sequence</div><span class="stage-auto">⚡ Auto</span></div>
+          <div class="pipeline-cell"><ul><li>Sold email triggered when Status is set to Won.</li><li><span class="none-text">No further automation after this point.</span></li></ul></div>
+          <div class="pipeline-cell tl-c"><ul><li>Congratulations email requesting shipping address for a gift.</li><li>Google review request with survey link.</li><li>Multiple auto-tasks: referral request, gift follow-through, CRM cleanup.</li><li>2-day wait, then additional tasks for testimonial and relationship maintenance.</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section" id="migration">
+      <div class="section-eyebrow">Setup Process</div>
+      <h2 class="section-title">Moving from Standard to Trent Lee</h2>
+      <p class="section-desc">If you are a current Deal Studio client considering the upgrade, the process is handled by your Deal Studio Implementation Specialist. Here is a summary of what is involved.</p>
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Before activation:</strong> Videos, calendar links, and SMS numbers need to be configured per broker. Your Implementation Specialist will walk through each of these during the setup process before going live.</div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Trent Lee package installed</div><div class="step-desc">The full workflow library is imported into your GHL sub-account by your Deal Studio Implementation Specialist.</div></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Video placeholders replaced</div><div class="step-desc">Each sequence includes video thumbnails. Your team updates these to your own Vimeo or YouTube videos, or keeps Trent Lee videos as licensed content.</div></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Calendar links configured</div><div class="step-desc">Booking links in emails are updated to point to each broker's own calendar. This is done per broker before any workflows go live.</div></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">SMS and voicemail set up</div><div class="step-desc">The SMS sending number and voicemail recordings are configured in GHL before the workflows are activated.</div></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Standard automations reviewed</div><div class="step-desc">Existing standard sequences are reviewed to avoid duplication or conflict with the new Trent Lee workflows.</div></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-body"><div class="step-title">Testing and go-live</div><div class="step-desc">Workflows are tested on dummy contacts before being activated for live use across the brokerage.</div></div></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section" id="fit">
+      <div class="section-eyebrow">Fit Assessment</div>
+      <h2 class="section-title">Is It Right for You?</h2>
+      <p class="section-desc">Both systems serve different needs. Use this to guide the conversation with clients who are evaluating the upgrade.</p>
+      <div class="two-col">
+        <div class="info-card">
+          <div class="info-card-head"><span class="ic-icon">✅</span><span class="ic-label">Trent Lee is a great fit if you...</span></div>
+          <ul>
+            <li><span class="check-icon">✓</span>Are actively marketing to both buyers and sellers and want to reduce manual follow-up.</li>
+            <li><span class="check-icon">✓</span>Are onboarding new brokers who don't yet have their own communication templates.</li>
+            <li><span class="check-icon">✓</span>Want a proven, tested communication system rather than building sequences from scratch.</li>
+            <li><span class="check-icon">✓</span>Want to use video as a trust-building tool with prospects at every stage.</li>
+            <li><span class="check-icon">✓</span>Are losing deals due to inconsistent follow-up and need a system to hold it together.</li>
+          </ul>
+        </div>
+        <div class="info-card tl">
+          <div class="info-card-head"><span class="ic-icon">🔹</span><span class="ic-label">Standard is sufficient if you...</span></div>
+          <ul>
+            <li><span class="check-icon purple">→</span>Already have strong manual follow-up habits and mainly need the NDA flow and stage notifications.</li>
+            <li><span class="check-icon purple">→</span>Are a smaller operation just getting started who wants to build familiarity with Deal Studio first.</li>
+            <li><span class="check-icon purple">→</span>Prefer to write your own communication and only need the CRM infrastructure in place.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section" id="summary">
+      <div class="section-eyebrow">Quick Reference</div>
+      <h2 class="section-title">Side-by-Side Summary</h2>
+      <p class="section-desc">A single-table overview for use in client meetings or as a leave-behind when discussing the upgrade.</p>
+      <table class="summary-table">
+        <thead><tr><th>Area</th><th>Deal Studio Standard</th><th>Trent Lee System</th></tr></thead>
+        <tbody>
+          <tr><td>Pricing</td><td>Included with Deal Studio</td><td>$200 / month add-on</td></tr>
+          <tr><td>Best suited for</td><td>Teams getting started on Deal Studio</td><td>Active, growth-focused brokerages</td></tr>
+          <tr><td>Setup complexity</td><td>Low — plug and play</td><td>Moderate — video, calendar, SMS required</td></tr>
+          <tr><td>Buyer email sequences</td><td>4 (NDA flow only)</td><td>17+ across all buyer stages</td></tr>
+          <tr><td>Seller email sequences</td><td>None automated</td><td>30+ across the full seller journey</td></tr>
+          <tr><td>SMS included</td><td>No</td><td>Yes — Buyer pipeline</td></tr>
+          <tr><td>Video content</td><td>No</td><td>Yes — Trent Lee branded at key stages</td></tr>
+          <tr><td>Voicemail drops</td><td>No</td><td>Yes — Buyer and Seller pipelines</td></tr>
+          <tr><td>Auto task creation</td><td>No</td><td>Yes — when contacts stall</td></tr>
+          <tr><td>Seller prospecting</td><td>No</td><td>Yes — up to 299 days of nurture</td></tr>
+          <tr><td>Post-closing sequence</td><td>Basic sold email</td><td>Gift request + Google review + broker tasks</td></tr>
+          <tr><td>DealBuilder compatible</td><td>Yes — native</td><td>Yes — fully compatible</td></tr>
+          <tr><td>Longest nurture period</td><td>13 days (NDA flow)</td><td>434 days (seller missed appointment)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 
-  <div class="section-label">Where to view & manage NDAs</div>
-  <div class="cards-grid">
-    <div class="info-card">
-      <div class="card-title">📄 View Signed NDA</div>
-      <div class="card-body">In the Buyer Opportunity: <strong>Opportunity Details → NDA Document</strong><br>Or in the contact's record under <strong>Documents</strong></div>
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="footer-ds">DS</span>
+      <span class="footer-text">Deal Studio · Internal Reference Guide · April 2026</span>
     </div>
-    <div class="info-card">
-      <div class="card-title">📋 View All NDAs</div>
-      <div class="card-body">Go to <strong>Payments → All Documents and Contracts</strong><br>Filter by Completed or Waiting for Others</div>
-    </div>
-    <div class="info-card">
-      <div class="card-title">✏️ Edit NDA Email Wording</div>
-      <div class="card-body">First 2 NDA emails: <strong>Marketing → Emails → Templates</strong><br>All other emails: <strong>Marketing → Snippets</strong></div>
-    </div>
-  </div>
+    <a href="https://guide.deal-studio.com" class="footer-link">guide.deal-studio.com →</a>
+  </footer>
+
 </div>
-
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     DEALBUILDER
-════════════════════════════════════════════════════════════════════════ -->
-<div class="section" id="dealbuilder">
-  <p class="section-heading">Deal<span>Builder</span> Integration</p>
-  <p class="section-sub">DealBuilder is your deal management hub built on top of GoHighLevel. It works interchangeably with the GHL CRM — automations sync between both systems.</p>
-
-  <div class="alert blue">
-    <div class="alert-icon">🔵</div>
-    <div><strong>What is DealBuilder?</strong> Deal Studio's own deal management tool, built on top of GoHighLevel (GHL). It is your centralised view for managing individual transactions — sellers, buyers, CIM access, data room, and biometric tracking — all in one place, syncing 100% with your GHL CRM.</div>
-  </div>
-
-  <div class="section-label">DealBuilder architecture</div>
-  <div class="db-arch">
-    <div class="db-arch-col">
-      <div class="db-arch-col-title">📁 Seller Side</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot"></div>Seller Intake Questionnaire</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot"></div>Document Upload to Data Room</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot"></div>CIMBuilder Tab (AI CIM creation)</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot"></div>Listing Details (Blind Profile URL)</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot"></div>Seller-Only Data Room Section</div>
-    </div>
-    <div class="db-arch-col">
-      <div class="db-arch-col-title">👤 Buyer Side</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot blue"></div>Add Buyer to Listing</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot blue"></div>NDA auto-triggered on add</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot blue"></div>Give Presentation/CIM Access</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot blue"></div>Grant Data Room Access</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot blue"></div>View Buyer Portal Biometrics</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot blue"></div>Track Multiple Listings per Buyer</div>
-    </div>
-    <div class="db-arch-col">
-      <div class="db-arch-col-title">📊 Data Room</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot green"></div>5 Access Levels</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot green"></div>Seller-Only, Broker, Buyer levels</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot green"></div>Broker controls & revokes access</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot green"></div>Buyer portal: email + verification code</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot green"></div>No password/registration needed</div>
-      <div class="db-arch-item"><div class="db-arch-item-dot green"></div>Biometric tracking (page views, time, logins)</div>
-    </div>
-  </div>
-
-  <div class="section-label">Updated Buyer workflow in DealBuilder</div>
-  <div class="flow-steps">
-    <div class="flow-step">
-      <div class="flow-step-num">
-        <div class="step-circle">1</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Add Buyer to DealBuilder Listing</div>
-        <div class="flow-step-desc">Navigate to <strong>DealBuilder → specific listing → Add Buyer</strong>. Leave buyer in <span class="tag">Inquiry Received</span> stage. The NDA automation triggers automatically — no separate URL or extra steps needed.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num">
-        <div class="step-circle">2</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Buyer Signs NDA → Exec Summary Sends</div>
-        <div class="flow-step-desc">System auto-moves buyer to <span class="tag">NDA Signed</span>. Executive Summary/Blind Profile email sends 15 minutes later (if URL field is populated). Buyer is now visible in DealBuilder with their linked listings.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num">
-        <div class="step-circle">3</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Broker Checks Biometrics Before Qualifying</div>
-        <div class="flow-step-desc">In DealBuilder, view buyer statistics: page views on CIM, time spent per page, login count, unique views. Use this data to prioritise which buyers are genuinely interested before scheduling calls or granting CIM access.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num">
-        <div class="step-circle">4</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Give CIM + Data Room Access</div>
-        <div class="flow-step-desc">In DealBuilder: <strong>buyer → Actions → Give Presentation Access</strong>. This: (a) moves buyer to <span class="tag">CIM/CBR Sent</span> stage automatically, (b) grants CIM access, (c) optionally grants data room access. <span class="tag red">⚠ Do NOT allow downloads until Due Diligence — downloads break biometric tracking</span></div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num">
-        <div class="step-circle">5</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Buyer Accesses Buyer Portal</div>
-        <div class="flow-step-desc">Buyer receives unique portal link. Login uses <strong>email + verification code only</strong> — no password or registration needed. All activity (pages viewed, time spent, documents accessed) is tracked in real time in your DealBuilder dashboard.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num">
-        <div class="step-circle">6</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Due Diligence → Enable Downloads</div>
-        <div class="flow-step-desc">When buyer moves to <span class="tag">Due Diligence</span>, you can then allow document downloads from the data room through DealBuilder. The system logs what was downloaded and when. Full data room access (5 levels) managed by broker — access can be revoked at any time.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-label">Key DealBuilder features at a glance</div>
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Feature</th>
-        <th>How It Works</th>
-        <th>Type</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td><strong>Add Buyer & Trigger NDA</strong></td><td>DealBuilder → listing → Add Buyer → leave in Inquiry Received</td><td><span class="pill auto">Auto</span></td></tr>
-      <tr><td><strong>Give CIM Access</strong></td><td>Buyer → Actions → Give Presentation Access → auto-moves to CIM/CBR Sent</td><td><span class="pill manual">Broker Action</span></td></tr>
-      <tr><td><strong>Data Room Access</strong></td><td>Must be granted through DealBuilder only — pipeline drag does NOT give data room access</td><td><span class="pill manual">Broker Action</span></td></tr>
-      <tr><td><strong>Biometric Tracking</strong></td><td>Page views, time per page, login count, unique viewers — auto-tracked when buyer uses portal</td><td><span class="pill auto">Auto</span></td></tr>
-      <tr><td><strong>Buyer Portal Login</strong></td><td>Unique link per buyer — email + verification code, no password needed</td><td><span class="pill auto">Auto</span></td></tr>
-      <tr><td><strong>Multiple Listings per Buyer</strong></td><td>DealBuilder shows all listings a buyer has inquired on + their stage per listing</td><td><span class="pill new">New</span></td></tr>
-      <tr><td><strong>Seller Intake Questionnaire</strong></td><td>Send from DealBuilder → seller completes online → uploads auto to Seller Only data room</td><td><span class="pill new">New</span></td></tr>
-      <tr><td><strong>Document Controls</strong></td><td>5 access levels; enable/disable downloads per stage; broker can revoke access anytime</td><td><span class="pill new">New</span></td></tr>
-    </tbody>
-  </table>
-
-  <div class="section-label">Broker setup requirements (before go-live)</div>
-  <div class="cards-grid">
-    <div class="info-card green-top">
-      <div class="card-title">👤 Profile Setup</div>
-      <ul class="checklist">
-        <li><span class="check-icon green">✓</span>Update profile with broker signature (used in all automated emails)</li>
-        <li><span class="check-icon green">✓</span>Connect two-way email sync</li>
-        <li><span class="check-icon green">✓</span>Connect Zoom / Google Meet</li>
-      </ul>
-    </div>
-    <div class="info-card green-top">
-      <div class="card-title">📅 Calendar Setup</div>
-      <ul class="checklist">
-        <li><span class="check-icon green">✓</span>Create general booking calendar link</li>
-        <li><span class="check-icon green">✓</span>Create buyer-specific calendar (15-min slots, limited days)</li>
-        <li><span class="check-icon green">✓</span>Both links used in email automations</li>
-      </ul>
-    </div>
-    <div class="info-card green-top">
-      <div class="card-title">👥 User Permissions</div>
-      <ul class="checklist">
-        <li><span class="check-icon green">✓</span>Brokers only see their own opportunities</li>
-        <li><span class="check-icon green">✓</span>Admin sees all + can filter by broker</li>
-        <li><span class="check-icon green">✓</span>Pipeline permissions: set view / edit / no access per user per pipeline</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     AI CIMBUILDER
-════════════════════════════════════════════════════════════════════════ -->
-<div class="section" id="sim-builder">
-  <p class="section-heading">AI <span>CIMBuilder</span></p>
-  <p class="section-sub">Built directly into DealBuilder. Reduces CIM creation time by ~70% using your seller intake questionnaire, data room files, and the client's website.</p>
-
-  <div class="alert green">
-    <div class="alert-icon">✅</div>
-    <div><strong>Status:</strong> Live and stable. Requires an <strong>OpenAI API key</strong> connected to your account. Typical usage cost: ~$3–4 per CIM generated. Output is fully editable (like PowerPoint slides) and can be exported as PDF.</div>
-  </div>
-
-  <div class="section-label">What CIMBuilder uses to create your CIM</div>
-  <div class="three-col">
-    <div class="info-card">
-      <div class="card-title">📋 Seller Intake Questionnaire</div>
-      <div class="card-body">Send the questionnaire from DealBuilder. Seller completes it online via their portal. All answers are pulled into CIMBuilder automatically. The more complete the questionnaire, the better the CIM output.</div>
-    </div>
-    <div class="info-card">
-      <div class="card-title">📁 Data Room Files</div>
-      <div class="card-body">Upload financial documents, operational information, and supporting files to the data room. CIMBuilder references the files you select when generating the CIM. Documents uploaded by seller via questionnaire go to Seller Only level automatically.</div>
-    </div>
-    <div class="info-card">
-      <div class="card-title">🌐 Client Website</div>
-      <div class="card-body">If the client has a website, add the URL in DealBuilder. CIMBuilder will pull in relevant business description, services, and branding information to supplement the questionnaire data.</div>
-    </div>
-  </div>
-
-  <div class="section-label">CIMBuilder workflow</div>
-  <div class="flow-steps">
-    <div class="flow-step">
-      <div class="flow-step-num"><div class="step-circle">1</div><div class="step-line"></div></div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Send Seller Intake Questionnaire</div>
-        <div class="flow-step-desc">From DealBuilder, send the seller intake questionnaire to your client. Multiple questionnaire types are supported (intake, document upload, teaser/blind profile). Seller completes online — no need to manually enter their responses.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num"><div class="step-circle">2</div><div class="step-line"></div></div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Upload Documents to Data Room</div>
-        <div class="flow-step-desc">Files uploaded by the seller via the questionnaire go directly to the <span class="tag">Seller Only</span> section of the data room. You can also manually upload additional documents. Select which files CIMBuilder should use.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num"><div class="step-circle">3</div><div class="step-line"></div></div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Generate CIM in CIMBuilder Tab</div>
-        <div class="flow-step-desc">Go to the <strong>CIMBuilder tab</strong> within DealBuilder. The AI generates a ~17-page CIM using your selected data. The prompt structure is pre-built — review and edit the output as needed. Editing is similar to working in PowerPoint.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num"><div class="step-circle">4</div><div class="step-line"></div></div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Review, Edit & Export</div>
-        <div class="flow-step-desc">Review the generated CIM, make edits and adjustments. Export as PDF when ready. You can also embed listing-specific broker videos directly in the CIM slides for a richer buyer experience.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num"><div class="step-circle">5</div><div class="step-line"></div></div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Upload to DealBuilder (Existing Listings)</div>
-        <div class="flow-step-desc">For existing listings where you already have a CIM as a PDF — <strong>upload it directly to DealBuilder</strong>. You immediately get biometric tracking benefits (page views, time per page) even without using the AI CIMBuilder to create it.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="alert yellow">
-    <div class="alert-icon">⚡</div>
-    <div><strong>Coming Soon (Roadmap):</strong> Auto-send CIM immediately upon NDA sign (setting in CIMBuilder). Auto-populate listing ad from CIM content. Notification when seller completes questionnaire.</div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     CHEAT SHEET
-════════════════════════════════════════════════════════════════════════ -->
-<div class="section" id="cheat-sheet">
-  <p class="section-heading">Automations <span>Cheat Sheet</span></p>
-  <p class="section-sub">Everything you need to remember to make your automations work seamlessly.</p>
-
-  <div class="section-label">Complete automation overview</div>
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Automation</th>
-        <th>Trigger</th>
-        <th>Requirement</th>
-        <th>Type</th>
-        <th>Edit Location</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>NDA Email 1</strong></td>
-        <td>Buyer inquiry received</td>
-        <td>Seller in On Market stage, Status: Open, Internal ID + Title set</td>
-        <td><span class="pill auto">Auto</span></td>
-        <td>Marketing → Emails → Templates</td>
-      </tr>
-      <tr>
-        <td><strong>NDA Emails 2–4</strong></td>
-        <td>+3, +7, +10 days (if NDA not signed)</td>
-        <td>NDA still unsigned at each interval</td>
-        <td><span class="pill auto">Auto</span></td>
-        <td>Marketing → Snippets</td>
-      </tr>
-      <tr>
-        <td><strong>Executive Summary Email</strong></td>
-        <td>15 min after NDA signed</td>
-        <td>Blind Profile URL must be populated in Seller Opportunity</td>
-        <td><span class="pill auto">Auto</span></td>
-        <td>Marketing → Snippets → DS_2.0.0_NDA Follow Up</td>
-      </tr>
-      <tr>
-        <td><strong>CBR/CIM Email (Legacy)</strong></td>
-        <td>Broker moves buyer to CIM/CBR Sent + approves</td>
-        <td>CBR URL must be in Seller Opportunity; broker must select Yes</td>
-        <td><span class="pill manual">Broker Action</span></td>
-        <td>Marketing → Snippets → DS_3.0.0_CBR</td>
-      </tr>
-      <tr>
-        <td><strong>CIM Access via DealBuilder</strong></td>
-        <td>Actions → Give Presentation Access</td>
-        <td>CIM uploaded/built in DealBuilder CIMBuilder tab</td>
-        <td><span class="pill manual">Broker Action</span></td>
-        <td>DealBuilder → Buyer → Actions</td>
-      </tr>
-      <tr>
-        <td><strong>Under Contract Email</strong></td>
-        <td>New buyer inquires when seller is in Due Diligence</td>
-        <td>Seller: Due Diligence stage, Status: Open; Current Status: Under Contract</td>
-        <td><span class="pill auto">Auto</span></td>
-        <td>Marketing → Snippets → DS_2.1.0_Under Contract - NDA</td>
-      </tr>
-      <tr>
-        <td><strong>Sold Email</strong></td>
-        <td>New buyer inquires when seller is in Post Closing</td>
-        <td>Seller: Post Closing, Status: Won; Current Status: Sold</td>
-        <td><span class="pill auto">Auto</span></td>
-        <td>Marketing → Snippets → DS_1.2.0_Sold Business</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="section-label">Do's & Don'ts</div>
-  <div class="two-col">
-    <div class="info-card red-top">
-      <div class="card-title">🚫 Never Do This</div>
-      <ul class="checklist">
-        <li><span class="check-icon red">✕</span>Delete any stages in the Buyer or Seller Pipeline</li>
-        <li><span class="check-icon red">✕</span>Rename any automation-connected stage</li>
-        <li><span class="check-icon red">✕</span>Delete or rename your NDA document in the Payments Tab</li>
-        <li><span class="check-icon red">✕</span>Allow downloads from the data room before Due Diligence stage (breaks biometric tracking)</li>
-        <li><span class="check-icon red">✕</span>Leave the Blind Profile URL blank if you want the Exec Summary email to send</li>
-        <li><span class="check-icon red">✕</span>Leave the CBR URL blank if you want the legacy CBR email to send</li>
-        <li><span class="check-icon red">✕</span>Try to give data room access from the pipeline — only works through DealBuilder</li>
-      </ul>
-    </div>
-    <div class="info-card green-top">
-      <div class="card-title">✅ You Can Do This</div>
-      <ul class="checklist">
-        <li><span class="check-icon green">✓</span>Add new stages in between existing automation stages</li>
-        <li><span class="check-icon green">✓</span>Reorder stages (as long as automation-connected ones are not moved)</li>
-        <li><span class="check-icon green">✓</span>Set pipeline permissions per user (view / edit / no access)</li>
-        <li><span class="check-icon green">✓</span>Embed videos in email templates (NDA, Exec Summary, etc.)</li>
-        <li><span class="check-icon green">✓</span>Use tags on listings to auto-tag buyers when they inquire</li>
-        <li><span class="check-icon green">✓</span>Upload existing PDF CIMs to DealBuilder to get biometric tracking</li>
-        <li><span class="check-icon green">✓</span>Merge duplicate contacts (keep separate buyer opportunities)</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     EMAIL TEMPLATES / SNIPPETS
-════════════════════════════════════════════════════════════════════════ -->
-<div class="section" id="snippets">
-  <p class="section-heading">Email Templates <span>&amp; Snippets</span></p>
-  <p class="section-sub">All automation-connected email content lives in two locations. Edit these to customise the wording sent to buyers and leads.</p>
-
-  <div class="alert yellow">
-    <div class="alert-icon">📌</div>
-    <div><strong>Two locations:</strong> NDA Emails 1 &amp; 2 are in <strong>Marketing → Emails → Templates</strong>. All other automation emails are in <strong>Marketing → Snippets</strong>. Never delete a snippet — only edit the content.</div>
-  </div>
-
-  <div class="section-label">Snippets directory</div>
-  <div style="background:var(--dark);border:1px solid var(--surface);margin-bottom:32px;">
-    <div class="snippet-row" style="background:var(--surface);">
-      <div class="snippet-name" style="color:var(--grey);font-size:12px;">SNIPPET NAME</div>
-      <div class="snippet-desc" style="color:var(--grey);font-size:12px;">WHAT IT DOES</div>
-      <div class="snippet-location" style="color:var(--grey);font-size:12px;">LOCATION</div>
-    </div>
-    <div class="snippet-row">
-      <div class="snippet-name">DS_2.0.0_NDA Follow Up</div>
-      <div class="snippet-desc">Executive Summary / Blind Profile email — sent 15 min after NDA signed (if URL populated)</div>
-      <div class="snippet-location">Marketing → Snippets</div>
-    </div>
-    <div class="snippet-row">
-      <div class="snippet-name">DS_3.0.0_CBR</div>
-      <div class="snippet-desc">CBR/CIM email — sent after broker manually moves buyer to CIM/CBR Sent + approves</div>
-      <div class="snippet-location">Marketing → Snippets</div>
-    </div>
-    <div class="snippet-row">
-      <div class="snippet-name">DS_2.1.0_Under Contract - NDA</div>
-      <div class="snippet-desc">Under Contract email — sent to new inquiries when seller is in Due Diligence</div>
-      <div class="snippet-location">Marketing → Snippets</div>
-    </div>
-    <div class="snippet-row">
-      <div class="snippet-name">DS_1.2.0_Sold Business</div>
-      <div class="snippet-desc">Sold email — sent to new inquiries when seller is in Post Closing, Status: Won</div>
-      <div class="snippet-location">Marketing → Snippets</div>
-    </div>
-    <div class="snippet-row">
-      <div class="snippet-name">DS_4.0.0_Buyer Leads // Forms</div>
-      <div class="snippet-desc">Welcome email when a buyer fills in the Join Email List form on your website</div>
-      <div class="snippet-location">Marketing → Snippets</div>
-    </div>
-    <div class="snippet-row">
-      <div class="snippet-name">DS_4.0.0_Lead Creation // Other Forms</div>
-      <div class="snippet-desc">Auto-response when a contact fills in the Contact Us form on your website</div>
-      <div class="snippet-location">Marketing → Snippets</div>
-    </div>
-    <div class="snippet-row">
-      <div class="snippet-name">DS_4.0.0_Seller Leads // Forms</div>
-      <div class="snippet-desc">Auto-response when a potential seller fills in the Inquire Now form</div>
-      <div class="snippet-location">Marketing → Snippets</div>
-    </div>
-    <div class="snippet-row">
-      <div class="snippet-name">DS_4.0.0_White Paper Download Link</div>
-      <div class="snippet-desc">Sends whitepaper download link when the Free Whitepaper form is completed</div>
-      <div class="snippet-location">Marketing → Snippets</div>
-    </div>
-    <div class="snippet-row" style="background:rgba(245,168,0,.08);">
-      <div class="snippet-name" style="color:var(--light-grey);">NDA Emails 1 &amp; 2</div>
-      <div class="snippet-desc">Initial NDA email + first follow-up — these use the e-signing contract functionality</div>
-      <div class="snippet-location">Marketing → Emails → Templates</div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     ADDITIONAL AUTOMATIONS
-════════════════════════════════════════════════════════════════════════ -->
-<div class="section" id="additional">
-  <p class="section-heading">Additional <span>Automations</span></p>
-  <p class="section-sub">Website-triggered automations available if you have a Deal Studio website. Forms can be amended in Sites → Forms → Builder.</p>
-
-  <div class="cards-grid">
-    <div class="info-card">
-      <div class="card-icon">📧</div>
-      <div class="card-title">Buyer Leads / Forms</div>
-      <div class="card-body">
-        <strong>Trigger:</strong> Buyer fills in the "Join Email List" form on your website.<br><br>
-        <strong>What happens:</strong> Automated welcome email sent; buyer added to contacts with a buyer tag.<br><br>
-        <strong>Edit:</strong> Marketing → Snippets → DS_4.0.0_Buyer Leads // Forms<br>
-        <span class="note">Amend form: Sites → Forms → Builder</span>
-      </div>
-    </div>
-    <div class="info-card">
-      <div class="card-icon">📬</div>
-      <div class="card-title">Lead Creation / Contact Us Forms</div>
-      <div class="card-body">
-        <strong>Trigger:</strong> Any visitor fills in the "Contact Us" form on your website.<br><br>
-        <strong>What happens:</strong> Auto-response acknowledging the inquiry; contact created in CRM.<br><br>
-        <strong>Edit:</strong> Marketing → Snippets → DS_4.0.0_Lead Creation // Other Forms<br>
-        <span class="note">Amend form: Sites → Forms → Builder</span>
-      </div>
-    </div>
-    <div class="info-card">
-      <div class="card-icon">🏢</div>
-      <div class="card-title">Seller Leads / Forms</div>
-      <div class="card-body">
-        <strong>Trigger:</strong> Potential seller fills in the "Inquire Now" form on your website.<br><br>
-        <strong>What happens:</strong> Auto-response confirming receipt and promising follow-up for a complimentary business evaluation.<br><br>
-        <strong>Edit:</strong> Marketing → Snippets → DS_4.0.0_Seller Leads // Forms<br>
-        <span class="note">Amend form: Sites → Forms → Builder</span>
-      </div>
-    </div>
-    <div class="info-card">
-      <div class="card-icon">📄</div>
-      <div class="card-title">Whitepaper Download</div>
-      <div class="card-body">
-        <strong>Trigger:</strong> Visitor fills in the "Free Whitepaper" form on your website.<br><br>
-        <strong>What happens:</strong> Email with a secure download link for the whitepaper sent automatically.<br><br>
-        <strong>Edit:</strong> Marketing → Snippets → DS_4.0.0_White Paper Download Link<br>
-        <span class="note">Amend form: Sites → Forms → Builder</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="alert blue">
-    <div class="alert-icon">💡</div>
-    <div><strong>Pro tip — Private Equity &amp; Direct Email Buyers:</strong> Set up a saved email snippet/template for PE buyers who email you directly. Include a link to your buyer profile form so they self-tag and self-enrich their contact record without you having to do it manually. As soon as they fill in the form, they can be tagged, filtered, and added to relevant email campaigns.</div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════════════════════════
-     TOMBSTONE
-════════════════════════════════════════════════════════════════════════ -->
-<div class="section" id="tombstone">
-  <p class="section-heading">Creating a <span>Tombstone</span></p>
-  <p class="section-sub">Show sold businesses under "Completed Transactions" on your website. All 5 conditions must be met simultaneously.</p>
-
-  <div class="section-label">All 5 conditions required</div>
-  <div class="tombstone-steps">
-    <div class="ts-step">
-      <div class="ts-step-label">Pipeline</div>
-      <div class="ts-step-value">Sellers</div>
-    </div>
-    <div class="ts-step">
-      <div class="ts-step-label">Stage</div>
-      <div class="ts-step-value">Post Closing</div>
-    </div>
-    <div class="ts-step">
-      <div class="ts-step-label">Status</div>
-      <div class="ts-step-value">Won</div>
-    </div>
-    <div class="ts-step">
-      <div class="ts-step-label">Show on Web</div>
-      <div class="ts-step-value">Yes</div>
-    </div>
-    <div class="ts-step">
-      <div class="ts-step-label">Current Status</div>
-      <div class="ts-step-value">Sold</div>
-    </div>
-  </div>
-
-  <div class="section-label">Step-by-step tombstone setup</div>
-  <div class="flow-steps">
-    <div class="flow-step">
-      <div class="flow-step-num"><div class="step-circle">1</div><div class="step-line"></div></div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Opportunity Details Tab</div>
-        <div class="flow-step-desc">Confirm <strong>Pipeline: Sellers</strong> and <strong>Stage: Post Closing</strong>. Drag &amp; drop the opportunity to set <strong>Status: Won</strong>.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num"><div class="step-circle">2</div><div class="step-line"></div></div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Listing Public Data Tab</div>
-        <div class="flow-step-desc">Set <strong>Current Status: Sold</strong>. Set <strong>Show on Web: Yes</strong>. Both fields must be set for the tombstone to appear on your website.</div>
-      </div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num"><div class="step-circle">3</div><div class="step-line"></div></div>
-      <div class="flow-step-body">
-        <div class="flow-step-title">Sold Email Triggers</div>
-        <div class="flow-step-desc">Once these settings are in place, any new buyer inquiring about this listing will receive the <strong>Sold Email</strong> automatically, directing them to browse other available businesses.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div><!-- /page -->
 
 <script>
-function showSection(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+  const sections = document.querySelectorAll('.section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '-60px 0px -65% 0px' });
+  sections.forEach(s => observer.observe(s));
 </script>
 </body>
 </html>
